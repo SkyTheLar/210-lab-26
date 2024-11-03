@@ -26,7 +26,7 @@ int main() {
 	set<string> set;
 
 	//initialize results arrays
-	double vectorRs[RACE_NUM][TRIAL_NUM], listRs[RACE_NUM][TRIAL_NUM], setRs[RACE_NUM][TRIAL_NUM];
+	double vectorRs[RACE_NUM][TRIAL_NUM + 1], listRs[RACE_NUM][TRIAL_NUM + 1], setRs[RACE_NUM][TRIAL_NUM + 1];
 
 	//run race loop
 	for (int i = 0; i < TRIAL_NUM; i++){
@@ -165,17 +165,37 @@ int main() {
 	}
 
 	//calculate averages
-	for (int i = 0; i < TRIAL_NUM; i++){
+	double sum = 0;
+	for (int i = 0; i < RACE_NUM; i++){
+		for (int c = 0; c < TRIAL_NUM; c++){
+			sum = sum + vectorRs[i][c];
+		}
+		vectorRs[i][TRIAL_NUM] = sum / TRIAL_NUM;
+	}
 
+	sum = 0;
+	for (int i = 0; i < RACE_NUM; i++){
+		for (int c = 0; c < TRIAL_NUM; c++){
+			sum = sum + listRs[i][c];
+		}
+		listRs[i][TRIAL_NUM] = sum / TRIAL_NUM;
+	}
+
+	sum = 0;
+	for (int i = 0; i < RACE_NUM; i++){
+		for (int c = 0; c < TRIAL_NUM; c++){
+			sum = sum + setRs[i][c];
+		}
+		setRs[i][TRIAL_NUM] = sum / TRIAL_NUM;
 	}
 
 	//display results
     cout << "Time taken in milliseconds:\n";
 	cout << setw(10) << "Operation" << setw(10) << "Vector"
 	   	 << setw(10) << "List" << setw(10) << "Set" << endl;
-    for (int i = 0; i < 4; i++)
-	   	cout << setw(10) << races[i] << setw(10) << vectorRs[i]
-	   		 << setw(10) << listRs[i] << setw(10) << setRs[i] << endl;
+    for (int i = 0; i < RACE_NUM; i++)
+	   	cout << setw(10) << races[i] << setw(10) << vectorRs[i][TRIAL_NUM]
+	   		 << setw(10) << listRs[i][TRIAL_NUM] << setw(10) << setRs[i][TRIAL_NUM] << endl;
 
     return 0;
 }
