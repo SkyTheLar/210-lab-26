@@ -162,27 +162,32 @@ int main() {
 	   	stop = high_resolution_clock::now();
 	   	duration = duration_cast<milliseconds>(stop - start);
     	setRs[3][i] = duration.count();
+
+    	//clear containers
+    	vector.clear();
+    	list.clear();
+    	set.clear();
 	}
 
 	//calculate averages
-	double sum = 0;
 	for (int i = 0; i < RACE_NUM; i++){
+		double sum = 0;
 		for (int c = 0; c < TRIAL_NUM; c++){
 			sum = sum + vectorRs[i][c];
 		}
 		vectorRs[i][TRIAL_NUM] = sum / TRIAL_NUM;
 	}
 
-	sum = 0;
 	for (int i = 0; i < RACE_NUM; i++){
+		double sum = 0;
 		for (int c = 0; c < TRIAL_NUM; c++){
 			sum = sum + listRs[i][c];
 		}
 		listRs[i][TRIAL_NUM] = sum / TRIAL_NUM;
 	}
 
-	sum = 0;
 	for (int i = 0; i < RACE_NUM; i++){
+		double sum = 0;
 		for (int c = 0; c < TRIAL_NUM; c++){
 			sum = sum + setRs[i][c];
 		}
@@ -190,11 +195,13 @@ int main() {
 	}
 
 	//display results
+    cout << "Trials done: " << TRIAL_NUM << endl;
     cout << "Time taken in milliseconds:\n";
 	cout << setw(10) << "Operation" << setw(10) << "Vector"
 	   	 << setw(10) << "List" << setw(10) << "Set" << endl;
     for (int i = 0; i < RACE_NUM; i++)
-	   	cout << setw(10) << races[i] << setw(10) << vectorRs[i][TRIAL_NUM]
+	   	cout << fixed << setprecision(2)
+		     << setw(10) << races[i] << setw(10) << vectorRs[i][TRIAL_NUM]
 	   		 << setw(10) << listRs[i][TRIAL_NUM] << setw(10) << setRs[i][TRIAL_NUM] << endl;
 
     return 0;
